@@ -1,18 +1,21 @@
 ﻿using ArcProxy.Core.Services;
 using ArcProxy.Web.Extensions;
+using ArcProxy.Web.Filters;
 using AspNetCore.Proxy;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArcProxy.Web.Controllers
 {
-    [ApiController]
+    [TypeFilter<RestExceptionFilter>]
     [Route("/arcservertest/rest/services/{**serviceUri}")]
-    public class GeoServiceController : ControllerBase
+    public class GeoServiceController : Controller
     {
         private readonly IGeoService _geoService;
-        public GeoServiceController(IGeoService geoService)
+        private readonly IConfiguration _config;
+        public GeoServiceController(IGeoService geoService, IConfiguration config)
         {
             _geoService = geoService;
+            _config = config;
         }
 
         [HttpGet]
@@ -30,7 +33,7 @@ namespace ArcProxy.Web.Controllers
             {
                 servicePath += Request.QueryString.Value;
             }
-            await this.HttpProxyAsync($"https://portaltest.gismap.by/arcservertest/rest/services/{servicePath}");
+            await this.HttpProxyAsync($"{_config["ProxiedUrl"]}/{servicePath}");
         }
     }
 }

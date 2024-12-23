@@ -12,18 +12,33 @@ namespace ArcProxy.Infrastructure.Data.Repositories
             m_DbContext = dbContext;
         }
 
-        public async Task<GeoServiceEntity?> GetAsync(int serviceId)
+        public Task<GeoServiceEntity?> GetAsync(int serviceId, bool forEdit = false)
         {
-            return await m_DbContext.GeoServices.AsNoTracking()
-                .Include(s => s.Rule)
+            IQueryable<GeoServiceEntity> result = m_DbContext.GeoServices;
+            if (!forEdit)
+            {
+                result = result.AsNoTracking();
+            }
+            return result.Include(s => s.Rule)
                 .SingleOrDefaultAsync(s => s.Id == serviceId);
         }
 
-        public async Task<GeoServiceEntity?> GetAsync(string serviceUri)
+        public Task<GeoServiceEntity?> GetAsync(string serviceUri, bool forEdit = false)
         {
-            return await m_DbContext.GeoServices.AsNoTracking()
-                .Include(s => s.Rule)
+            IQueryable<GeoServiceEntity> result = m_DbContext.GeoServices;
+            if (!forEdit)
+            {
+                result = result.AsNoTracking();
+            }
+            return result.Include(s => s.Rule)
                 .SingleOrDefaultAsync(s => s.Uri == serviceUri);
+        }
+
+        public Task<List<GeoServiceEntity>> GetAsync()
+        {
+            return m_DbContext.GeoServices.AsNoTracking()
+                .Include(g => g.Rule)
+                .ToListAsync();
         }
     }
 }

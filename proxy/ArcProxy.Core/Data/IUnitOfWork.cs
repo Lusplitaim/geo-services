@@ -8,6 +8,7 @@ namespace ArcProxy.Core.Data
         IGeoServiceRepository GeoServiceRepository { get; }
         IGeoServiceRuleRepository GeoServiceRuleRepository { get; }
         Task SaveAsync();
+        void Commit();
         IDbContextTransaction BeginTransaction();
     }
 }

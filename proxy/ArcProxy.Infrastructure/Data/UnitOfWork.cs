@@ -21,6 +21,11 @@ namespace ArcProxy.Infrastructure.Data
             await m_DbContext.SaveChangesAsync();
         }
 
+        public void Commit()
+        {
+            m_DbContext.Database.CommitTransaction();
+        }
+
         public IDbContextTransaction BeginTransaction()
         {
             return m_DbContext.Database.BeginTransaction();
