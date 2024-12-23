@@ -1,0 +1,25 @@
+services:
+  react-app:
+    build:
+      context: ./clientARC/web_test
+      dockerfile: Dockerfile
+    container_name: react_app
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./clientARC/web_test/.env
+    environment:
+      - REACT_APP_BASE_URL=http://localhost:5159
+    restart: unless-stopped
+  proxy-server:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+      target: final
+    container_name: proxy_server
+    ports:
+      - 5159:8080
+    volumes:
+      - db-data:/var/lib/db/data
+volumes:
+  db-data:
