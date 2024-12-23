@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,9 +14,9 @@ namespace ArcProxy.Infrastructure.Migrations
                 name: "GeoServices",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false),
-                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    Uri = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    Uri = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,10 +27,10 @@ namespace ArcProxy.Infrastructure.Migrations
                 name: "GeoServiceRules",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    RequestLimit = table.Column<int>(type: "integer", nullable: false),
-                    ServiceId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RequestLimit = table.Column<int>(type: "INTEGER", nullable: false),
+                    ServiceId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -3,7 +3,6 @@ using ArcProxy.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,28 +14,22 @@ namespace ArcProxy.Infrastructure.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
 
             modelBuilder.Entity("ArcProxy.Core.Data.Entities.GeoServiceEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Uri")
                         .IsRequired()
                         .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -47,15 +40,13 @@ namespace ArcProxy.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("RequestLimit")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ServiceId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

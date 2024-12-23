@@ -25,7 +25,7 @@ namespace ArcProxy.Infrastructure.Extensions
         {
             return services.AddDbContext<DatabaseContext>(opts =>
             {
-                opts.UseNpgsql(configuration["DatabaseConnections:PostgreSQL"]);
+                opts.UseSqlite(configuration["DatabaseConnections:Sqlite"]);
             });
         }
     }
